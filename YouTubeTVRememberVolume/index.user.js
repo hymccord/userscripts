@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube TV Remember Volume
 // @namespace    https://www.github.com/InKahootz
-// @version      1.0
+// @version      1.1
 // @description  Remember YouTube TV volume between visits/refreshes
 // @author       InKahootz
 // @match        https://tv.youtube.com/*
@@ -30,6 +30,10 @@
         }
     }
 
+    function addListenerMulti(el, s, fn) {
+        s.split(' ').forEach(e => el.addEventListener(e, fn, false));
+    }
+
     function onElementSourceUpdate(target, callback) {
         var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
         var observer = new MutationObserver(function (mutations) {
@@ -37,33 +41,47 @@
                 callback();
             });
         });
-        observer.observe(target, {attributes: true, attributeFilter: ["src"]});
+        observer.observe(target, {attributes: true, attributeFilter: ['src']});
     }
 
     function setVolume(volume) {
-        getElement("tp-yt-paper-slider", function (slider) {
-            getElement("video", function (video) {
-                video.addEventListener('volumechange', function(e) {
-                    GM_setValue("volume", slider.value);
-                }, false);
-            });
+        getElement('tp-yt-paper-slider', function (slider) {
+            // console.log('setting slider value: ', volume);
             slider.value = volume;
         });
     }
 
     function setPreferredVolume() {
-        const preferredVolume = GM_getValue("volume", 50);
+        const preferredVolume = GM_getValue('volume', 50);
         setVolume(preferredVolume);
     }
 
-    function main(){
-        setPreferredVolume();
-
-        getElement("video", function (video) {
-            onElementSourceUpdate(video, function () {
-                setPreferredVolume();
-            });
+    // Listen to volume changed events on the video player
+    // and store the slider value to local storage
+    function addEventListenerToStoreVolume() {
+        getElement('video', function (video) {
+            video.addEventListener('volumechange', function(e) {
+                // console.log('volume changed');
+                getElement('#sliderBar', function (slider) {
+                    GM_setValue('volume', slider.value);
+                    // console.log('storing volume: ', slider.value);
+                });
+            }, false);
         });
+    }
+
+    function addEventListenerToSetVolume() {
+        getElement('video', function (video) {
+            addListenerMulti(video, 'loadeddata play', function (e) {
+                // console.log(e.type, '. setting volume');
+                setPreferredVolume();
+            }, false);
+        });
+    }
+
+    function main(){
+        addEventListenerToStoreVolume();
+        addEventListenerToSetVolume();
     };
 
     main();
