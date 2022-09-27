@@ -1,10 +1,9 @@
 // ==UserScript==
-// @name         MouseHunt - Folklore Forest Map Color Coder
-// @author       in59te, Xellis
-// @namespace    https://greasyfork.org/en/users/739524-in59te
-// @version      0.9
-// @description  Color codes mice on Folklore Forest maps according to type
-// @match        http://www.mousehuntgame.com/*
+// @name         MouseHunt - <Region> Map Color Coder
+// @author       Xellis
+// @namespace    https://github.com/inkahootz/
+// @version      0.1
+// @description  Color codes mice on <REGION> maps according to type
 // @match        https://www.mousehuntgame.com/*
 // ==/UserScript==
 // Based off original script by Tsitu
@@ -12,84 +11,40 @@
 // Input the chest names you want this script to match
 const mapRewards = [
     // "Rare Empyrean Sky Palace Treasure Chest", // EXAMPLE
-    "Farming and Fishing Treasure Chest",
-    "Farming and Fishing Treasure Chest",
-    "Folklore Forest Prelude Treasure Chest",
-    "Rare Folklore Forest Prelude Treasure Chest"
 ];
 
 function buildGroups() {
+    /* Insert Groups as needed.
+
+        EXAMPLE
+        new MouseGroup("Header Display Name" [
+            "List",
+            "of",
+            "Mice"
+        ], "#COLOR), // colorcomment
+
+        EMPTY for copy/paste:
+        new MouseGroup("", [
+
+        ], "#"), //
+
+    */
     mapMiceGroups = [
-        new MouseGroup("SB Only", [
-            "Crazed Cultivator",
-            "Matriach Gander",
-            "Covetous Coastguard"
-        ], "#FFFFFF"), // white
-        new MouseGroup("Seed", [
-            "Root Rummager",
-            "Grit Grifter",
-        ], "#0FF380" ), // light green
-        new MouseGroup("Farm Spec", [
-            "Land Loafer",
-            "Loathsome Locust",
-            "Monstrous Midge"
-        ], "#0B6222"), // dark green
-        new MouseGroup("Pest", [
-            "Angry Aphid",
-            "Wily Weevil",
-            "Mighty Mite"
-        ], "#0EA635"), // med green
-        new MouseGroup("Pd Std", [
-            "Beachcomber",
-            "Sand Sifter",
-            "Tackle Tracker"
-        ], "#5BF8DC"), // light blue
-        new MouseGroup("Grub", [
-            "Pompous Perch",
-            "Careless Catfish",
-            "Melodramatic Minnow"
-        ], "#0F97F7"), // normal blue
-        new MouseGroup("Clam", [
-            "Sinister Squid",
-            "Nefarious Nautilus",
-            "Vicious Vampire Squid"
-        ], "#07568C"), // dark blue
-        new MouseGroup("Storm", [
-            "Architeuthulhu of the Abyss"
-        ], "#8428CC"), // some shade of purple
-        new MouseGroup("Std w/o write", [
-            "Brothers Grimmaus",
-            "Hans Cheesetian Squeakersen",
-            "Madame d'Ormouse"
-        ], "#CDCDCD"), // grey
-        new MouseGroup("Std w write", [
-            "Humphrey Dumphrey",
-            "Little Bo Squeak",
-            "Little Miss Fluffet"
-        ], "#FC5E78"), // cherry
-        new MouseGroup("1DD", [
-            "Fibbocchio",
-            "Pinkielina",
-            "Princess and the Olive"
-        ], "#FDFAA2"), // yellow
-        new MouseGroup("2DD", [
-            "Flamboyant Flautist",
-            "Greenbeard",
-            "Ice Regent"
-        ], "#F8943A"), //orange
-        new MouseGroup("FDD", [
-            "Bitter Grammarian",
-            "Mythweaver"
-        ], "#D6A80B") // gold
+        /*
+        // EXAMPLE
+        new MouseGroup("Indigenous" [
+            "White",
+            "Cowardly",
+            "Tiny"
+        ], "#FF0000), // red
+        */
     ];
 }
 var mapMiceGroups = []
 
 function colorize() {
     buildGroups();
-    const isChecked = localStorage.getItem("highlightPref") === "uncaught-only";
-    const isCheckedStr = isChecked ? "checked" : "";
-
+    const colorUncaughtOnly = localStorage.getItem("highlightPref") === "uncaught-only";
     if (document.querySelectorAll(".treasureMapView-goals-group-goal").length === 0) {
         return;
     }
@@ -97,8 +52,7 @@ function colorize() {
     document.querySelectorAll(".treasureMapView-goals-group-goal").forEach(el => {
         el.querySelector("span").style = "color: black; font-size: 11px;";
 
-        const mouseName = el.querySelector(".treasureMapView-goals-group-goal-name")
-        .textContent;
+        const mouseName = el.querySelector(".treasureMapView-goals-group-goal-name").textContent;
 
         for (const group of mapMiceGroups) {
             if (group.mice.indexOf(mouseName) === -1) {
@@ -107,7 +61,7 @@ function colorize() {
 
             const mouseCaught = el.classList.contains("complete");
 
-            el.style.backgroundColor = !mouseCaught || !isChecked ? group.color : "";
+            el.style.backgroundColor = !mouseCaught || !colorUncaughtOnly ? group.color : "";
             if (!mouseCaught) {
                 group.count++;
             }
@@ -126,6 +80,7 @@ function colorize() {
 
     var groupHeaderSpans = [];
 
+    // Create each colored header and append to main div
     for (const group of mapMiceGroups) {
         masterDiv.appendChild(group.createGroupHeaderElement(spanStyle));
     }
@@ -139,7 +94,7 @@ function colorize() {
     highlightBox.type = "checkbox";
     highlightBox.name = "tsitu-highlight-box";
     highlightBox.style.verticalAlign = "middle";
-    highlightBox.checked = isChecked;
+    highlightBox.checked = colorUncaughtOnly;
     highlightBox.addEventListener("click", function () {
         if (highlightBox.checked) {
             localStorage.setItem("highlightPref", "uncaught-only");
@@ -204,12 +159,12 @@ const originalOpen = XMLHttpRequest.prototype.open;
 XMLHttpRequest.prototype.open = function() {
     this.addEventListener("load", function () {
         const mapEl = document.querySelector(".treasureMapView-mapMenu-rewardName");
-        if (mapEl) {
-            const mapName = mapEl.textContent;
-            if (mapName && mapRewards.indexOf(mapName) > -1) {
-                colorize();
-            }
-        }
-    });
-    originalOpen.apply(this, arguments);
+    if (mapEl) {
+      const mapName = mapEl.textContent;
+      if (mapName && mapRewards.indexOf(mapName) > -1) {
+        colorize();
+      }
+    }
+  });
+  originalOpen.apply(this, arguments);
 };
