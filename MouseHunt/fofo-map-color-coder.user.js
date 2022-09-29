@@ -2,7 +2,7 @@
 // @name         MouseHunt - Folklore Forest Map Color Coder
 // @author       in59te, Xellis
 // @namespace    https://greasyfork.org/en/users/739524-in59te
-// @version      0.9
+// @version      0.10
 // @description  Color codes mice on Folklore Forest maps according to type
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
@@ -13,9 +13,7 @@
 const mapRewards = [
     // "Rare Empyrean Sky Palace Treasure Chest", // EXAMPLE
     "Farming and Fishing Treasure Chest",
-    "Farming and Fishing Treasure Chest",
     "Folklore Forest Prelude Treasure Chest",
-    "Rare Folklore Forest Prelude Treasure Chest"
 ];
 
 function buildGroups() {
