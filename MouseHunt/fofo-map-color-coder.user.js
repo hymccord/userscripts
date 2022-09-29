@@ -22,7 +22,7 @@ function buildGroups() {
     mapMiceGroups = [
         new MouseGroup("SB Only", [
             "Crazed Cultivator",
-            "Matriach Gander",
+            "Matriarch Gander",
             "Covetous Coastguard"
         ], "#FFFFFF"), // white
         new MouseGroup("Seed", [
