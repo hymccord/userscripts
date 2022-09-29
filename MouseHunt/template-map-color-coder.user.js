@@ -8,9 +8,16 @@
 // ==/UserScript==
 // Based off original script by Tsitu
 
-// Input the chest names you want this script to match
+/*
+    =====
+    README
+    =====
+    Edit any of these as needed for you map region.
+*/
+const customDivClassName = "<REGION/EVENT>-map";
+// Input the chest names you want this script to match. The rare version is not necessary due to string matching but you can still include it.
 const mapRewards = [
-    // "Rare Empyrean Sky Palace Treasure Chest", // EXAMPLE
+    // "Empyrean Sky Palace Treasure Chest", // EXAMPLE
 ];
 
 function buildGroups() {
@@ -40,6 +47,13 @@ function buildGroups() {
         */
     ];
 }
+
+/*
+    ======
+    README
+    ======
+    You shouldn't typically need to edit below here.
+*/
 var mapMiceGroups = []
 
 function colorize() {
@@ -50,7 +64,7 @@ function colorize() {
     }
 
     document.querySelectorAll(".treasureMapView-goals-group-goal").forEach(el => {
-        el.querySelector("span").style = "color: black; font-size: 11px;";
+        el.querySelector("span").style = "color: black;";
 
         const mouseName = el.querySelector(".treasureMapView-goals-group-goal-name").textContent;
 
@@ -68,11 +82,11 @@ function colorize() {
         }
     });
 
-    // Remove existing GWH Map related elements before proceeding
-    document.querySelectorAll(".ff-map").forEach(el => el.remove());
+    // Remove previous related elements before proceeding
+    document.querySelectorAll(customDivClassName).forEach(el => el.remove());
 
     const masterDiv = document.createElement("div");
-    masterDiv.className = "ff-map";
+    masterDiv.className = customDivClassName;
     masterDiv.style =
         "display: inline-flex; margin-bottom: 10px; width: 100%; text-align: center; line-height: 1.5; overflow: hidden";
     const spanStyle =
@@ -105,7 +119,7 @@ function colorize() {
     });
 
     const highlightDiv = document.createElement("div");
-    highlightDiv.className = "ff-map";
+    highlightDiv.className = customDivClassName;
     highlightDiv.style = "float: right; position: relative; z-index: 1";
     highlightDiv.appendChild(highlightBox);
     highlightDiv.appendChild(highlightLabel);
@@ -135,6 +149,13 @@ function colorize() {
 
 class MouseGroup {
     count = 0;
+
+    /**
+     * Create a mouse group
+     * @param {string} groupName - The short name displayed in the colored summary box
+     * @param {string[]} mice Array of mice name for given group
+     * @param {string} color A string assigned the background-color of the colored elements
+     */
     constructor(groupName, mice, color) {
         this.mice = mice;
         this.groupName = groupName;
