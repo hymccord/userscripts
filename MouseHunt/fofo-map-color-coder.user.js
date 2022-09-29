@@ -86,7 +86,6 @@ var mapMiceGroups = []
 function colorize() {
     buildGroups();
     const isChecked = localStorage.getItem("highlightPref") === "uncaught-only";
-    const isCheckedStr = isChecked ? "checked" : "";
 
     if (document.querySelectorAll(".treasureMapView-goals-group-goal").length === 0) {
         return;
