@@ -182,7 +182,7 @@ XMLHttpRequest.prototype.open = function() {
         const mapEl = document.querySelector(".treasureMapView-mapMenu-rewardName");
     if (mapEl) {
       const mapName = mapEl.textContent;
-      if (mapName && mapRewards.indexOf(mapName) > -1) {
+      if (mapName && mapRewards.some(m => mapName.indexOf(m)) > -1) {
         colorize();
       }
     }
