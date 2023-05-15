@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         YouTube TV Remember Volume
-// @namespace    https://www.github.com/InKahootz
-// @version      1.1
+// @namespace    https://www.github.com/hymccord
+// @version      1.2
 // @description  Remember YouTube TV volume between visits/refreshes
-// @author       InKahootz
+// @author       hymccord
 // @match        https://tv.youtube.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
-// @downloadURL  https://github.com/InKahootz/userscripts/raw/main/YouTubeTVRememberVolume/index.user.js
-// @updateURL    https://github.com/InKahootz/userscripts/raw/main/YouTubeTVRememberVolume/index.user.js
+// @downloadURL  https://github.com/hymccord/userscripts/raw/main/YouTubeTVRememberVolume/index.user.js
+// @updateURL    https://github.com/hymccord/userscripts/raw/main/YouTubeTVRememberVolume/index.user.js
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @run-at       document-end

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MouseHunt - <Region> Map Color Coder
 // @author       Xellis
-// @namespace    https://github.com/inkahootz/
+// @namespace    https://github.com/hymccord/
 // @version      0.1
 // @description  Color codes mice on <REGION> maps according to type
 // @match        https://www.mousehuntgame.com/*
