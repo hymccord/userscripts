@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube TV Remember Volume
 // @namespace    https://www.github.com/hymccord
-// @version      1.2
+// @version      1.3
 // @description  Remember YouTube TV volume between visits/refreshes
 // @author       hymccord
 // @match        https://tv.youtube.com/*
@@ -71,7 +71,7 @@
     }
 
     function addEventListenerToSetVolume() {
-        getElement('video', function (video) {
+        getElement('.html5-main-video', function (video) {
             addListenerMulti(video, 'loadeddata play', function (e) {
                 // console.log(e.type, '. setting volume');
                 setPreferredVolume();
