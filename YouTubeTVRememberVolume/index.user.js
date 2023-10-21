@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube TV Remember Volume
 // @namespace    https://www.github.com/hymccord
-// @version      1.3
+// @version      1.4
 // @description  Remember YouTube TV volume between visits/refreshes
 // @author       hymccord
 // @match        https://tv.youtube.com/*
@@ -59,7 +59,7 @@
     // Listen to volume changed events on the video player
     // and store the slider value to local storage
     function addEventListenerToStoreVolume() {
-        getElement('video', function (video) {
+        getElement('.html5-main-video', function (video) {
             video.addEventListener('volumechange', function(e) {
                 // console.log('volume changed');
                 getElement('#sliderBar', function (slider) {
