@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         Logarithmic Volume
 // @namespace    https://github.com/hymccord
-// @version      2.0
+// @version      2.1
 // @description  Makes most volume slider exponential so it's easier to select lower volumes. Add user excludes if your media player already supports it (e.g jellyfin).
 // @author       Hank McCord
-// @downloadURL  https://raw.githubusercontent.com/hymccord/userscripts/main/logarithmicvolume/index.user.js
-// @updateURL    https://raw.githubusercontent.com/hymccord/userscripts/main/logarithmicvolume/index.user.js
+// @downloadURL  https://raw.githubusercontent.com/hymccord/userscripts/refs/heads/main/LogarithmicVolume/index.user.js
+// @updateURL    https://raw.githubusercontent.com/hymccord/userscripts/refs/heads/main/LogarithmicVolume/index.user.js
 // @icon         https://github.com/hymccord/userscripts/raw/main/LogarithmicVolume/icon.png
 // @match        *://*/*
 // @run-at       document-start
