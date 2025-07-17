@@ -4,8 +4,8 @@
 // @version      0.4.0
 // @description  Card counter for Flip 7 on BoardGameArena
 // @author       KuRRe8, hymccord
-// @downloadURL  https://raw.githubusercontent.com/hymccord/userscripts/main/flip7/flip7.user.js
-// @updateURL    https://raw.githubusercontent.com/hymccord/userscripts/main/flip7/flip7.user.js
+// @downloadURL  https://raw.githubusercontent.com/hymccord/userscripts/main/Flip7/Flip7.user.js
+// @updateURL    https://raw.githubusercontent.com/hymccord/userscripts/main/Flip7/Flip7.user.js
 // @match        https://boardgamearena.com/*/flipseven?table=*
 // @grant        GM_addStyle
 // @grant        GM_getValue
