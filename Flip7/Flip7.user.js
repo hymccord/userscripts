@@ -1,11 +1,9 @@
 // ==UserScript==
 // @name         BGA Flip 7 Card Counter
 // @namespace    https://github.com/hymccord
-// @version      0.4.0
+// @version      0.5.0
 // @description  Card counter for Flip 7 on BoardGameArena
 // @author       KuRRe8, hymccord
-// @downloadURL  https://raw.githubusercontent.com/hymccord/userscripts/main/Flip7/Flip7.user.js
-// @updateURL    https://raw.githubusercontent.com/hymccord/userscripts/main/Flip7/Flip7.user.js
 // @match        https://boardgamearena.com/*/flipseven?table=*
 // @grant        GM_addStyle
 // @grant        GM_getValue
@@ -222,10 +220,8 @@ class UIManager {
         if (this.isMobile) {
             Object.assign(baseStyles, {
                 top: "10px",
-                left: "10px",
-                right: "10px",
-                width: "calc(100vw - 20px)",
-                maxWidth: "400px",
+                left: "5vw",
+                right: "5vw",
                 maxHeight: this.isCollapsed ? "50px" : "70vh",
                 transform: "none",
             });
